@@ -26,7 +26,7 @@ public record FuncionarioRequestDTO(
         @NotBlank(message = "O cargo não pode ser vazio ou nulo.")
         String cargo,
 
-        @NotBlank(message = "O salário não pode ser vazio ou nulo.")
+        @NotNull(message = "O salário não pode ser nulo.")
         @Positive(message = "O salário deve ser um número positivo.")
         BigDecimal salario,
 

@@ -29,6 +29,8 @@ public class FuncionarioModel {
         this.dataAdmissao = dataAdmissao;
     }
 
+    public FuncionarioModel() {}
+
     public Long getId() {
         return id;
     }
