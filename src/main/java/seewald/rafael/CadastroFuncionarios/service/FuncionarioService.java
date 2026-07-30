@@ -17,12 +17,14 @@ public class FuncionarioService {
     }
 
     public FuncionarioModel salvarFuncionario(FuncionarioRequestDTO funcionarioRequestDTO) {
-        FuncionarioModel funcionario= new FuncionarioModel();
+        FuncionarioModel funcionario = new FuncionarioModel();
         funcionario.setNome(funcionarioRequestDTO.nome());
         funcionario.setEmail(funcionarioRequestDTO.email());
         funcionario.setSalario(funcionarioRequestDTO.salario());
-        funcionario.setCpf(funcionarioRequestDTO.cpf());
         funcionario.setCargo(funcionarioRequestDTO.cargo());
+
+        String cpfSomenteNumeros = funcionarioRequestDTO.cpf().replaceAll("\\D", "");
+        funcionario.setCpf(cpfSomenteNumeros);
 
         return funcionarioRepository.save(funcionario);
     }

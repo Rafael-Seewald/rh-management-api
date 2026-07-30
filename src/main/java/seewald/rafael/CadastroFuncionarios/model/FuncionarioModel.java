@@ -3,7 +3,7 @@ package seewald.rafael.CadastroFuncionarios.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "funcionario_db")
@@ -17,9 +17,16 @@ public class FuncionarioModel {
     private String email;
     private String cargo;
     private BigDecimal salario;
-    private LocalDate dataAdmissao;
 
-    public FuncionarioModel(Long id, String nome, String cpf, String email, String cargo, BigDecimal salario, LocalDate dataAdmissao) {
+    @Column(name = "data_admissao", nullable = false, updatable = false)
+    private LocalDateTime dataAdmissao;
+
+    @PrePersist
+    public void aoCriar() {
+        this.dataAdmissao = LocalDateTime.now();
+    }
+
+    public FuncionarioModel(Long id, String nome, String cpf, String email, String cargo, BigDecimal salario, LocalDateTime dataAdmissao) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -79,11 +86,11 @@ public class FuncionarioModel {
         this.salario = salario;
     }
 
-    public LocalDate getDataAdmissao() {
+    public LocalDateTime getDataAdmissao() {
         return dataAdmissao;
     }
 
-    public void setDataAdmissao(LocalDate dataAdmissao) {
+    public void setDataAdmissao(LocalDateTime dataAdmissao) {
         this.dataAdmissao = dataAdmissao;
     }
 }

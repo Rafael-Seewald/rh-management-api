@@ -28,9 +28,5 @@ public record FuncionarioRequestDTO(
 
         @NotNull(message = "O salário não pode ser nulo.")
         @Positive(message = "O salário deve ser um número positivo.")
-        BigDecimal salario,
-
-        @NotNull(message = "A data de admissão é obrigatória")
-        @PastOrPresent(message = "A data de admissão não pode ser futura.")
-        LocalDate dataAdmissao
+        BigDecimal salario
 ) {}
