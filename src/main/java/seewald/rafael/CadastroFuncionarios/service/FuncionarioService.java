@@ -1,5 +1,6 @@
 package seewald.rafael.CadastroFuncionarios.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import seewald.rafael.CadastroFuncionarios.dto.FuncionarioRequestDTO;
 import seewald.rafael.CadastroFuncionarios.model.FuncionarioModel;
@@ -34,7 +35,8 @@ public class FuncionarioService {
     }
 
     public FuncionarioModel buscarFuncionarioPorId(Long id) {
-        return funcionarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        return funcionarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o id: " + id));
     }
 
     public FuncionarioModel atualizarFuncionario(Long Id, FuncionarioRequestDTO funcionarioRequestDTO) {
