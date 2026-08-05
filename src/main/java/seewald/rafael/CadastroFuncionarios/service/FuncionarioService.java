@@ -2,6 +2,7 @@ package seewald.rafael.CadastroFuncionarios.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import seewald.rafael.CadastroFuncionarios.dto.CorrigirCpfDTO;
 import seewald.rafael.CadastroFuncionarios.dto.FuncionarioRequestDTO;
 import seewald.rafael.CadastroFuncionarios.model.FuncionarioModel;
 import seewald.rafael.CadastroFuncionarios.repository.FuncionarioRepository;
@@ -45,7 +46,6 @@ public class FuncionarioService {
         funcionarioExistence.setNome(funcionarioRequestDTO.nome());
         funcionarioExistence.setEmail(funcionarioRequestDTO.email());
         funcionarioExistence.setSalario(funcionarioRequestDTO.salario());
-        funcionarioExistence.setCpf(funcionarioRequestDTO.cpf());
         funcionarioExistence.setCargo(funcionarioRequestDTO.cargo());
         return funcionarioRepository.save(funcionarioExistence);
     }
@@ -53,5 +53,21 @@ public class FuncionarioService {
     public void deletarFuncionario(Long Id){
         FuncionarioModel funcionarioExistence = buscarFuncionarioPorId(Id);
         funcionarioRepository.deleteById(Id);
+    }
+
+    public FuncionarioModel corrigirCpf(Long id, CorrigirCpfDTO dto) {
+        FuncionarioModel funcionario = buscarFuncionarioPorId(id);
+
+        String novoCpfLimpo = dto.cpf().replaceAll("\\D", "");
+
+        boolean cpfJaExiste = funcionarioRepository.existsByCpf(novoCpfLimpo);
+        if (cpfJaExiste && !funcionario.getCpf().equals(novoCpfLimpo)) {
+            throw new org.springframework.dao.DataIntegrityViolationException("Este CPF já está cadastrado para outro funcionário.");
+        }
+
+        System.out.println("AUDITORIA: CPF do funcionário ID " + id + " alterado de " + funcionario.getCpf() + " para " + novoCpfLimpo);
+
+        funcionario.setCpf(novoCpfLimpo);
+        return funcionarioRepository.save(funcionario);
     }
 }

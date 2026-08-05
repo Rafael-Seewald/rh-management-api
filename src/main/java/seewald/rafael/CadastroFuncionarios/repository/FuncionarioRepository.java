@@ -6,4 +6,5 @@ import seewald.rafael.CadastroFuncionarios.model.FuncionarioModel;
 
 @Repository
 public interface FuncionarioRepository extends JpaRepository<FuncionarioModel, Long > {
+    boolean existsByCpf(String cpf);
 }

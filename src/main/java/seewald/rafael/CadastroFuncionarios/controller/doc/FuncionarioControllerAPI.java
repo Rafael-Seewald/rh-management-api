@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import seewald.rafael.CadastroFuncionarios.dto.FuncionarioRequestDTO;
-import seewald.rafael.CadastroFuncionarios.model.FuncionarioModel;
+import seewald.rafael.CadastroFuncionarios.dto.FuncionarioResponseDTO;
 
 import java.util.List;
 
@@ -18,18 +18,18 @@ public interface FuncionarioControllerAPI {
             @ApiResponse(responseCode = "201", description = "Funcionário cadastrado com sucesso."),
             @ApiResponse(responseCode = "400", description = "Dados de entrada inválidos.")
     })
-    ResponseEntity<FuncionarioModel> criar(FuncionarioRequestDTO funcionarioRequesDTO);
+    ResponseEntity<FuncionarioResponseDTO> criar(FuncionarioRequestDTO funcionarioRequesDTO);
 
     @Operation(summary = "Listar todos os funcionários.")
     @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso.")
-    ResponseEntity<List<FuncionarioModel>> listarTodos();
+    ResponseEntity<List<FuncionarioResponseDTO>> listarTodos();
 
     @Operation(summary = "Buscar o funcionário pelo ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Funcionário retornado com sucesso."),
             @ApiResponse(responseCode = "400", description = "Funcinário com esse ID não encontrado.")
     })
-    ResponseEntity<FuncionarioModel> bustarPorId(Long id);
+    ResponseEntity<FuncionarioResponseDTO> bustarPorId(Long id);
 
     @Operation(summary = "Deletar um funcionário pelo ID.")
     @ApiResponses(value = {
@@ -44,5 +44,5 @@ public interface FuncionarioControllerAPI {
             @ApiResponse(responseCode = "400", description = "Dados inválidos."),
             @ApiResponse(responseCode = "404", description = "Funcionário não encontrado.")
     })
-    ResponseEntity<FuncionarioModel> atualizar(Long id, FuncionarioRequestDTO funcionarioRequestDTO);
+    ResponseEntity<FuncionarioResponseDTO> atualizar(Long id, FuncionarioRequestDTO funcionarioRequestDTO);
 }
