@@ -23,7 +23,6 @@ Uma API RESTful robusta desenvolvida em **Java 21** e **Spring Boot 3**, projeta
 * **OpenAPI Separation:** Interface dedicada (`FuncionarioControllerAPI`) para isolar as anotações da documentação Swagger da lógica do Controller.
 * **Tratamento Global de Erros (`@RestControllerAdvice`):** Padronização das respostas de erro no formato REST com suporte a capturas de DTOs inválidos, dados duplicados, payloads malformados e exceções genéricas.
 * **Sanitização de Dados:** Tratamento de dados sensíveis e máscaras (ex: CPF) salvando apenas valores limpos no banco de dados.
-* **Auditoria Automática:** Manipulação da data de admissão controlada automaticamente via anotação `@PrePersist`.
 * **Profiles de Ambiente:** Isolação entre ambiente de produção/dev com PostgreSQL e ambiente de testes (`application-test.properties`) com H2 em memória.
 
 ---
