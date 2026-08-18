@@ -1,6 +1,7 @@
 package seewald.rafael.CadastroFuncionarios.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import seewald.rafael.CadastroFuncionarios.dto.CorrigirCpfDTO;
 import seewald.rafael.CadastroFuncionarios.dto.FuncionarioRequestDTO;
@@ -28,6 +29,9 @@ public class FuncionarioService {
         String cpfSomenteNumeros = funcionarioRequestDTO.cpf().replaceAll("\\D", "");
         funcionario.setCpf(cpfSomenteNumeros);
 
+        if (funcionarioRepository.existsByCpf(cpfSomenteNumeros)) {
+            throw new DataIntegrityViolationException("Este CPF já está cadastrado.");
+        }
         return funcionarioRepository.save(funcionario);
     }
 
@@ -52,7 +56,7 @@ public class FuncionarioService {
 
     public void deletarFuncionario(Long Id){
         FuncionarioModel funcionarioExistence = buscarFuncionarioPorId(Id);
-        funcionarioRepository.deleteById(Id);
+        funcionarioRepository.delete(funcionarioExistence);
     }
 
     public FuncionarioModel corrigirCpf(Long id, CorrigirCpfDTO dto) {

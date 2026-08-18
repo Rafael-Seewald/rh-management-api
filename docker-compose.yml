@@ -1,0 +1,38 @@
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: funcionario_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: funcionario_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  app-api:
+    build: .
+    container_name: funcionario_api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=root
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/funcionario_db
+    depends_on:
+      postgres-db:
+        condition: service_started
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

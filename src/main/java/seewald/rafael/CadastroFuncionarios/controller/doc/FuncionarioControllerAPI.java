@@ -27,9 +27,9 @@ public interface FuncionarioControllerAPI {
     @Operation(summary = "Buscar o funcionário pelo ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Funcionário retornado com sucesso."),
-            @ApiResponse(responseCode = "400", description = "Funcinário com esse ID não encontrado.")
+            @ApiResponse(responseCode = "404", description = "Funcinário com esse ID não encontrado.")
     })
-    ResponseEntity<FuncionarioResponseDTO> bustarPorId(Long id);
+    ResponseEntity<FuncionarioResponseDTO> buscarPorId(Long id);
 
     @Operation(summary = "Deletar um funcionário pelo ID.")
     @ApiResponses(value = {

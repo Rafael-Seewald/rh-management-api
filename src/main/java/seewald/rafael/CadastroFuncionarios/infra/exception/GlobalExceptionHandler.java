@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
 
         RestErrorResponseDTO error = new RestErrorResponseDTO(
                 LocalDateTime.now(),
-                "Bad Request",
                 message,
+                "Bad Request",
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value()
         );

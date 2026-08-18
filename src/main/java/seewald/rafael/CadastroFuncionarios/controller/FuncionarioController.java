@@ -2,6 +2,7 @@ package seewald.rafael.CadastroFuncionarios.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import seewald.rafael.CadastroFuncionarios.controller.doc.FuncionarioControllerAPI;
@@ -14,7 +15,11 @@ import seewald.rafael.CadastroFuncionarios.service.FuncionarioService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping(
+        value = "/funcionarios",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE
+)
 public class FuncionarioController implements FuncionarioControllerAPI {
     private final FuncionarioService funcionarioService;
 
@@ -32,7 +37,7 @@ public class FuncionarioController implements FuncionarioControllerAPI {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FuncionarioResponseDTO> bustarPorId(@PathVariable Long id){
+    public ResponseEntity<FuncionarioResponseDTO> buscarPorId(@PathVariable Long id){
         FuncionarioModel funcionario = funcionarioService.buscarFuncionarioPorId(id);
         return ResponseEntity.ok(new FuncionarioResponseDTO(funcionario));
     }
